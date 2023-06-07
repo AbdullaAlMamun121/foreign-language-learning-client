@@ -1,9 +1,9 @@
 import React from 'react';
-import { Link, NavLink, Outlet } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 
 const Dashboard = () => {
 
-
+// TODO: load data from server to have dynamic admin
     const isAdmin = true;
 
     return (
