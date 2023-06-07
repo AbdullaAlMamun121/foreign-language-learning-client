@@ -1,12 +1,20 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import useAuth from '../../../hooks/useAuth';
 
 const NavBar = () => {
+    const { user, logOut } = useAuth();
+    const signOut = () => {
+        logOut().then(() => {
+
+        }).catch(err => console.log(err.message));
+    }
+    console.log(user);
     const navMenu = <>
         <li><Link to="/">Home</Link></li>
         <li><Link to="instructors">Instructors</Link></li>
         <li><Link to="classes">Classes</Link></li>
-        <li><Link to="dashboard">Dashboard </Link></li>
+        {user && <li><Link to="dashboard">Dashboard </Link></li>}
     </>
     return (
         <>
@@ -34,13 +42,18 @@ const NavBar = () => {
                         </div>
                     </label>
                     <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
-                        <li>
-                            <Link className="justify-between">
-                                Profile
-                                <span className="badge">New</span>
-                            </Link>
-                        </li>
-                        <li><Link>Logout</Link></li>
+                        {user ? <>
+                            <li>
+                                <Link className="justify-between">
+                                    Profile
+                                    <span className="badge">New</span>
+                                </Link>
+                            </li>
+                            <li><button onClick={signOut}>Logout</button></li>
+                        </> : <>
+                            <li><Link to="/login">Login</Link></li>
+                        </>}
+
                     </ul>
                 </div>
             </div>
