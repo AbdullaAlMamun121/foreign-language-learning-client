@@ -1,5 +1,4 @@
 import React from 'react';
-import Container from '../../../components/Shared/Container/Container';
 import { Link } from 'react-router-dom';
 
 const NavBar = () => {
