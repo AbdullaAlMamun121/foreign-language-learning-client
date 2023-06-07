@@ -3,16 +3,23 @@ import { ImSpinner6 } from 'react-icons/im'
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import useAuth from '../../hooks/useAuth';
+import { useState } from 'react';
 
 
 
 const SignUp = () => {
     const navigate = useNavigate();
-    
+    const [showPassword,setShowPassword] = useState(false);
+
+    const passwordToggle = ()=>{
+        setShowPassword(!showPassword);
+    }
+
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
     const { createUser, signInWithGoogle, loading,
         setLoading, updateUserProfile } = useAuth();
 
+    // confirm password validation
     const passwordValidation = (password, confirmPassword) => {
         return password == confirmPassword;
     }
@@ -36,11 +43,11 @@ const SignUp = () => {
             });
         } else {
             console.log('Do not match confirm password');
-           
+
         }
     }
 
-    const handleGoogleSignIn = () => { 
+    const handleGoogleSignIn = () => {
         signInWithGoogle().then(result => {
             console.log(result.user);
             navigate('/')
@@ -94,14 +101,22 @@ const SignUp = () => {
                                     Password
                                 </label>
                             </div>
-                            <input type='password'
+                            <input type={showPassword ? 'text':'password'}
                                 name='password'
                                 placeholder='Enter Your Mail'
                                 className='w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-rose-500 bg-green-200 text-green-900'
                                 data-temp-mail-org='0'
-                                {...register("password",{ required: true, minLength: 6 }, { pattern: /^(?=.*[A-Z])(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/
-                               })} />
+                                {...register("password", { required: true, minLength: 6 }, {
+                                    pattern: /^(?=.*[A-Z])(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/
+                                })} />
                             {errors.password && <span>Password should contain at least one capital letter and one special character and 6 digitPassword is required</span>}
+                        </div>
+                        <div className='flex flex-row items-center '>
+                            <input type='checkbox'
+                                   onChange={passwordToggle}
+                                   checked={showPassword}
+                            />
+                            <label htmlFor='showPassword' className='ml-2 text-sm text-center'>Show Password</label>
                         </div>
                         <div>
                             <div className='flex justify-between'>
@@ -114,8 +129,9 @@ const SignUp = () => {
                                 placeholder='Enter Confirm Password'
                                 className='w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-rose-500 bg-green-200 text-green-900'
                                 data-temp-mail-org='0'
-                                {...register("confirmPassword", { required: true, minLength: 6 },{ pattern: /^(?=.*[A-Z])(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/
-                               })} />
+                                {...register("confirmPassword", { required: true, minLength: 6 }, {
+                                    pattern: /^(?=.*[A-Z])(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/
+                                })} />
                             {errors.confirmPassword && <span>Confirm Password should contain at least one capital letter and one special character and 6 digit</span>}
                         </div>
                         <div>

@@ -3,14 +3,21 @@ import { ImSpinner6 } from 'react-icons/im'
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import useAuth from '../../hooks/useAuth';
+import { useState } from 'react';
 
 const Login = () => {
-
+   const [showPassword,setShowPassword] = useState(false);
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
 
     const { loading, setLoading, signIn, signInWithGoogle } = useAuth();
     const location = useLocation();
     const from = location?.state?.from.pathname || '/';
+
+
+    // show password 
+    const passwordToggle =()=>{
+        setShowPassword(!showPassword);
+    }
 
     // user login by email & password
     const onSubmit = info => {
@@ -72,13 +79,20 @@ const Login = () => {
                                     Password
                                 </label>
                             </div>
-                            <input type='password'
+                            <input type={showPassword ? 'text' : 'password'}
                                 name='password'
                                 placeholder='Enter Your Mail'
                                 className='w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-rose-500 bg-green-200 text-green-900'
                                 data-temp-mail-org='0'
                                 {...register("password", { required: true })} />
                             {errors.password && <span>Password is required</span>}
+                        </div>
+                        <div className='flex flex-row items-center '>
+                            <input type='checkbox'
+                                onChange={passwordToggle}
+                                checked={showPassword}
+                            />
+                            <label htmlFor='showPassword' className='ml-2 text-sm text-center'>Show Password</label>
                         </div>
                     </div>
 
