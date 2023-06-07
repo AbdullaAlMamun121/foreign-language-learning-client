@@ -4,6 +4,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import useAuth from '../../hooks/useAuth';
 import { useState } from 'react';
+import { saveUserInDd } from '../../api/auth';
 
 
 
@@ -32,7 +33,7 @@ const SignUp = () => {
         if (passwordValidation(password, confirmPassword)) {
             createUser(email, password).then(result => {
                 const signUpUser = result.user;
-                console.log(signUpUser);
+                saveUserInDd(result.user)
                 updateUserProfile(name, photoURL).then(() => {
                     console.log('user profile updated');
                 }).catch(error => {
@@ -49,7 +50,7 @@ const SignUp = () => {
 
     const handleGoogleSignIn = () => {
         signInWithGoogle().then(result => {
-            console.log(result.user);
+            saveUserInDd(result.user);
             navigate('/')
         }).catch(err => {
             setLoading(false);

@@ -4,6 +4,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import useAuth from '../../hooks/useAuth';
 import { useState } from 'react';
+import { saveUserInDd } from '../../api/auth';
 
 const Login = () => {
    const [showPassword,setShowPassword] = useState(false);
@@ -40,7 +41,7 @@ const Login = () => {
     const navigate = useNavigate();
     const handleGoogleSignIn = () => {
         signInWithGoogle().then(result => {
-            console.log(result.user);
+            saveUserInDd(result.user);
             navigate(from, { replace: true })
         }).catch(err => {
             setLoading(false);
