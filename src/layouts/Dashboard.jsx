@@ -1,11 +1,15 @@
 import React from 'react';
 import { Link, Outlet } from 'react-router-dom';
+import useAdmin from '../hooks/useAdmin';
+import useInstructor from '../hooks/useInstructor';
 
 const Dashboard = () => {
 
-// TODO: load data from server to have dynamic admin
-    const isAdmin = true;
-
+    // TODO: load data from server to have dynamic admin
+    // const [isAdmin] = useAdmin();
+    // const {isInstructor} = useInstructor();
+    const [isAdmin] = useAdmin();
+    const [isInstructor] = useInstructor();
     return (
         <div>
             <div className="drawer lg:drawer-open">

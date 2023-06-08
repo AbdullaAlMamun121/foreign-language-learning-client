@@ -8,7 +8,7 @@ const ManageUsers = () => {
 
     const token = localStorage.getItem('access-token');
     const { data: users = [], refetch } = useQuery(['users'], async () => {
-        const res = await axiosSecure('/users')
+        const res = await axiosSecure.get('/users')
         return res.data;
     })
 

@@ -7,7 +7,7 @@ import { useState } from 'react';
 import { saveUserInDd } from '../../api/auth';
 
 const Login = () => {
-   const [showPassword,setShowPassword] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
 
     const { loading, setLoading, signIn, signInWithGoogle } = useAuth();
@@ -16,7 +16,7 @@ const Login = () => {
 
 
     // show password 
-    const passwordToggle =()=>{
+    const passwordToggle = () => {
         setShowPassword(!showPassword);
     }
 
@@ -28,11 +28,11 @@ const Login = () => {
         signIn(email, password).then(result => {
             const loggedInUser = result.user;
             console.log(loggedInUser);
-            toast.message('Login success');
+            // toast.message('Login success');
             navigate(from, { replace: true });
         }).catch(error => {
             console.log(error.message);
-            toast.error(error.message)
+            // toast.error(error.message)
         })
 
     };
@@ -40,11 +40,12 @@ const Login = () => {
     // user login by google
     const navigate = useNavigate();
     const handleGoogleSignIn = () => {
+        setLoading(true); // Set loading to true
         signInWithGoogle().then(result => {
             saveUserInDd(result.user);
+            setLoading(false);
             navigate(from, { replace: true })
         }).catch(err => {
-            setLoading(false);
             console.log(err.message);
             toast.error(err.message);
         })
@@ -98,11 +99,16 @@ const Login = () => {
                     </div>
 
                     <div>
+                      
                         <button
                             type='submit'
                             className='bg-rose-950 w-full rounded-md py-3 text-white'
                         >
-                            {loading ? <ImSpinner6 className='m-auto animate-spin' size={22}></ImSpinner6> : ' Login'}
+                            {!loading ? (
+                                <ImSpinner6 className='m-auto animate-spin' size={22} />
+                            ) : (
+                                ' Login'
+                            )}
                         </button>
                     </div>
                 </form>
