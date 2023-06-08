@@ -10,9 +10,9 @@ import { saveUserInDd } from '../../api/auth';
 
 const SignUp = () => {
     const navigate = useNavigate();
-    const [showPassword,setShowPassword] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
 
-    const passwordToggle = ()=>{
+    const passwordToggle = () => {
         setShowPassword(!showPassword);
     }
 
@@ -33,9 +33,10 @@ const SignUp = () => {
         if (passwordValidation(password, confirmPassword)) {
             createUser(email, password).then(result => {
                 const signUpUser = result.user;
-                saveUserInDd(result.user)
                 updateUserProfile(name, photoURL).then(() => {
                     console.log('user profile updated');
+                    saveUserInDd(result.user);
+                    navigate('/');
                 }).catch(error => {
                     console.error(error.message)
                 })
@@ -102,7 +103,7 @@ const SignUp = () => {
                                     Password
                                 </label>
                             </div>
-                            <input type={showPassword ? 'text':'password'}
+                            <input type={showPassword ? 'text' : 'password'}
                                 name='password'
                                 placeholder='Enter Your Mail'
                                 className='w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-rose-500 bg-green-200 text-green-900'
@@ -114,8 +115,8 @@ const SignUp = () => {
                         </div>
                         <div className='flex flex-row items-center '>
                             <input type='checkbox'
-                                   onChange={passwordToggle}
-                                   checked={showPassword}
+                                onChange={passwordToggle}
+                                checked={showPassword}
                             />
                             <label htmlFor='showPassword' className='ml-2 text-sm text-center'>Show Password</label>
                         </div>
