@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
 import { FcApproval, FcDisapprove } from 'react-icons/fc';
 import { BiMailSend } from 'react-icons/bi';
 
 const ManageClasses = () => {
+
+    const [feedBack, setFeedback] = useState('');
 
     const [axiosSecure] = useAxiosSecure();
     const { data: classes = [], refetch } = useQuery(['classes'], async () => {
@@ -22,6 +24,23 @@ const ManageClasses = () => {
                     authorization: `bearer ${token}`
                 },
                 body: JSON.stringify({ status })
+            })
+            const data = await response.json();
+            refetch();
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    const handleFeedBack = async (id) => {
+        console.log(feedBack)
+        try {
+            const response = await fetch(`http://localhost:5000/instructors/${id}`, {
+                method: 'PATCH',
+                headers: {
+                    'content-type': 'application/json',
+                    authorization: `bearer ${token}`
+                },
+                body: JSON.stringify({ feedBack })
             })
             const data = await response.json();
             refetch();
@@ -75,7 +94,9 @@ const ManageClasses = () => {
                                     </td>
 
                                     <td>{item.status !== 'approved' ? <div className='flex items-center gap-4'>
-                                        <input type="textarea" className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:border-blue-500" /><BiMailSend className="text-5xl"></BiMailSend>
+                                        <input type="textarea"
+                                            onChange={(e) => setFeedback(e.target.value)}
+                                            className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:border-blue-500" /><BiMailSend className="text-5xl" onClick={() => handleFeedBack(item._id)}></BiMailSend>
                                     </div> : ('')}
                                     </td>
 
