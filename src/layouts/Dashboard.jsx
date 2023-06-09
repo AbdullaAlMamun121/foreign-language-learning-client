@@ -28,18 +28,22 @@ const Dashboard = () => {
                             <>
                                 <li><Link to="/dashboard/manageClasses">Manage Classes</Link></li>
                                 <li><Link to="/dashboard/manageUsers">Manage Users</Link></li>
+                                <li><Link to="/">Go Home</Link></li>
 
                             </>
                         ) : (
                             <>
                                 {isInstructor ? (
                                     <>
-                                        <li><Link to="/dashboard/instructorHome">Add Class</Link></li>
+                                        <li><Link to="/dashboard/addClasses">Add Class</Link></li>
+                                        <li><Link to="/dashboard/myClasses">My Class</Link></li>
+                                        <li><Link to="/">Go Home</Link></li>
 
                                     </>
                                 ) : (
                                     <>
-                                        <li><Link to="/dashboard/userHome">Home</Link></li>
+                                        <li><Link to="/dashboard/userHome">Dashboard Home</Link></li>
+                                        <li><Link to="/">Go Home</Link></li>
 
                                     </>
                                 )}
