@@ -6,7 +6,7 @@ import InstructorCard from './InstructorCard';
 const DisplayInstructor = () => {
     const [axiosSecure] = useAxiosSecure();
     const { data: instructors = [] } = useQuery(['instructors'], async () => {
-        const res = await axiosSecure.get('/default/instructor')
+        const res = await axiosSecure.get('/instructor/list')
         console.log(res.data)
         return res.data;
     })
