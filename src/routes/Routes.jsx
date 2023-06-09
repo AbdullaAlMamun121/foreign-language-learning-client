@@ -3,12 +3,13 @@ import Main from "../layouts/Main";
 import Home from "../pages/Home/Home/Home";
 import Login from "../pages/Login/Login";
 import SignUp from "../pages/SignUp/SignUp";
-import Instructor from "../pages/Instructor/Instructor";
 import Dashboard from "../layouts/Dashboard";
 import ManageClasses from "../pages/Dashboard/ManageClasses/ManageClasses";
 import ManageUsers from "../pages/Dashboard/ManageUsers/ManageUsers";
 import AddClasses from "../pages/Dashboard/Instructor/AddClasses/AddClasses";
 import MyClasses from "../pages/Dashboard/Instructor/MyClasses/MyClasses";
+import DisplayInstructor from "../pages/DisplayInstructor/DisplayInstructor";
+import DisplayClasses from "../pages/DisplayClasses/DisplayClasses";
 
 const router = createBrowserRouter([
     {
@@ -28,8 +29,12 @@ const router = createBrowserRouter([
           element:<SignUp></SignUp>
         },
         {
-          path:'instructors',
-          element:<Instructor></Instructor>
+          path:'displayInstructor',
+          element:<DisplayInstructor></DisplayInstructor>
+        },
+        {
+          path:'displayClasses',
+          element:<DisplayClasses></DisplayClasses>
         }
       ],
     },

@@ -12,8 +12,8 @@ const NavBar = () => {
     console.log(user);
     const navMenu = <>
         <li><Link to="/">Home</Link></li>
-        <li><Link to="/instructors">Instructors</Link></li>
-        <li><Link to="/classes">Classes</Link></li>
+        <li><Link to="/displayInstructor">Instructors</Link></li>
+        <li><Link to="/displayClasses">Classes</Link></li>
         {user && <li><Link to="/dashboard">Dashboard </Link></li>}
     </>
     return (

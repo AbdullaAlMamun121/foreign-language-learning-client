@@ -14,6 +14,7 @@ const ManageClasses = () => {
         console.log(res.data)
         return res.data;
     })
+    
     const token = localStorage.getItem('access-token');
     const handleUpdateStatus = async (status, id) => {
         try {
