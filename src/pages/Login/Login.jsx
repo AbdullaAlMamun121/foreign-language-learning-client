@@ -28,11 +28,11 @@ const Login = () => {
         signIn(email, password).then(result => {
             const loggedInUser = result.user;
             console.log(loggedInUser);
-            // toast.message('Login success');
+            alert('Login successful');
             navigate(from, { replace: true });
         }).catch(error => {
             console.log(error.message);
-            // toast.error(error.message)
+            alert(error.message)
         })
 
     };
@@ -43,11 +43,12 @@ const Login = () => {
         setLoading(true); // Set loading to true
         signInWithGoogle().then(result => {
             saveUserInDd(result.user);
+            alert('Login successful');
             setLoading(false);
             navigate(from, { replace: true })
         }).catch(err => {
             console.log(err.message);
-            toast.error(err.message);
+            alert(err.message);
         })
     }
     return (

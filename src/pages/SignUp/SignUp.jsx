@@ -36,15 +36,18 @@ const SignUp = () => {
                 updateUserProfile(name, photoURL).then(() => {
                     console.log('user profile updated');
                     saveUserInDd(result.user);
+                    alert('User created successful')
                     navigate('/');
                 }).catch(error => {
-                    console.error(error.message)
+                    console.error(error.message);
+                    alert(error.message)
                 })
             }).catch(err => {
                 console.log(err);
             });
         } else {
             console.log('Do not match confirm password');
+            alert('Do not match confirm password');
 
         }
     }
@@ -52,11 +55,12 @@ const SignUp = () => {
     const handleGoogleSignIn = () => {
         signInWithGoogle().then(result => {
             saveUserInDd(result.user);
+            alert('Sing Up success')
             navigate('/')
         }).catch(err => {
             setLoading(false);
             console.log(err.message);
-            // toast.error(err.message);
+            alert(err.message);
         })
     }
 
