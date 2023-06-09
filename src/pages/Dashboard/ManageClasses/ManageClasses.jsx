@@ -1,6 +1,7 @@
 import React from 'react';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
+import { FcApproval, FcDisapprove } from 'react-icons/fc';
 
 const ManageClasses = () => {
 
@@ -10,6 +11,26 @@ const ManageClasses = () => {
         console.log(res.data)
         return res.data;
     })
+    const token = localStorage.getItem('access-token');
+    const handleUpdateStatus = async (status, id) => {
+        console.log(id)
+        try {
+            const response = await fetch(`http://localhost:5000/instructors/${id}/status`, {
+                method: 'PATCH',
+                headers: {
+                    'content-type': 'application/json',
+                     authorization: `bearer ${token}`
+                },
+                body: JSON.stringify({ status })
+            })
+            const data = await response.json();
+            refetch();
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+
     return (
         <>
             <div className='w-full'>
@@ -26,8 +47,8 @@ const ManageClasses = () => {
                                 <th>Seats</th>
                                 <th>Price</th>
                                 <th>Action</th>
-                                <th>Action</th>
-                                <th>Action</th>
+                                <th>Approved</th>
+                                <th>Denied</th>
                                 <th>Feedback</th>
                             </tr>
                         </thead>
@@ -41,10 +62,21 @@ const ManageClasses = () => {
                                     <td>{item.seats}</td>
                                     <td>{item.price}</td>
                                     <td>{item.status}</td>
-                                    <td>approved</td>
-                                    <td>denied</td>
-                                    <td>FeedBack: <input type='textarea'/></td> 
-                                    
+
+                                    <td>
+                                        {item.status !== 'approved' ? (<button onClick={() => handleUpdateStatus('approved', item._id)} className='p-4 text-4xl rounded-2xl bg-orange-200 hover:bg-orange-400'><FcApproval></FcApproval></button>) : (
+                                            'approved'
+                                        )}
+                                    </td>
+                                    <td>
+                                        {item.status !== 'denied' ? (<button onClick={() => handleUpdateStatus('denied',  item._id)} className='p-4 text-4xl rounded-2xl bg-orange-200 hover:bg-orange-400'><FcDisapprove></FcDisapprove></button>) : (
+                                            'denied'
+                                        )}
+                                    </td>
+
+                                    <td><input type="textarea" className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:border-blue-500" />
+                                    </td>
+
 
                                 </tr>)
                             }
