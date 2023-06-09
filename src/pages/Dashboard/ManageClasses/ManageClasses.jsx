@@ -2,6 +2,7 @@ import React from 'react';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
 import { FcApproval, FcDisapprove } from 'react-icons/fc';
+import { BiMailSend } from 'react-icons/bi';
 
 const ManageClasses = () => {
 
@@ -13,13 +14,12 @@ const ManageClasses = () => {
     })
     const token = localStorage.getItem('access-token');
     const handleUpdateStatus = async (status, id) => {
-        console.log(id)
         try {
             const response = await fetch(`http://localhost:5000/instructors/${id}/status`, {
                 method: 'PATCH',
                 headers: {
                     'content-type': 'application/json',
-                     authorization: `bearer ${token}`
+                    authorization: `bearer ${token}`
                 },
                 body: JSON.stringify({ status })
             })
@@ -69,12 +69,14 @@ const ManageClasses = () => {
                                         )}
                                     </td>
                                     <td>
-                                        {item.status !== 'denied' ? (<button onClick={() => handleUpdateStatus('denied',  item._id)} className='p-4 text-4xl rounded-2xl bg-orange-200 hover:bg-orange-400'><FcDisapprove></FcDisapprove></button>) : (
+                                        {item.status !== 'denied' ? (<button onClick={() => handleUpdateStatus('denied', item._id)} className='p-4 text-4xl rounded-2xl bg-orange-200 hover:bg-orange-400'><FcDisapprove></FcDisapprove></button>) : (
                                             'denied'
                                         )}
                                     </td>
 
-                                    <td><input type="textarea" className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:border-blue-500" />
+                                    <td>{item.status !== 'approved' ? <div className='flex items-center gap-4'>
+                                        <input type="textarea" className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:border-blue-500" /><BiMailSend className="text-5xl"></BiMailSend>
+                                    </div> : ('')}
                                     </td>
 
 
