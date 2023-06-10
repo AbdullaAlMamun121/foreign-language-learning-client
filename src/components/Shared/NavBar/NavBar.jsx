@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import useAuth from '../../../hooks/useAuth';
-
+import {IoMdLogIn} from 'react-icons/io'
 const NavBar = () => {
     const { user, logOut } = useAuth();
     const signOut = () => {
@@ -22,9 +22,9 @@ const NavBar = () => {
                 <Link to="/" className="btn btn-ghost normal-case text-xl">Language School</Link>
                 <div className="navbar-start">
                     <div className="dropdown">
-                        <label tabIndex={0} className="btn btn-ghost lg:hidden">
+                        {user ? <label tabIndex={0} className="btn btn-ghost lg:hidden">
                             <img src={user?.photoURL} />
-                        </label>
+                        </label> :''}
                         <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
                             {navMenu}
                         </ul>
@@ -36,19 +36,13 @@ const NavBar = () => {
                     </ul>
                 </div>
                 <div className="dropdown dropdown-end">
-                    <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-                        <div className="w-10 rounded-full">
+                    <label tabIndex={0} className={` ${user ? "btn btn-ghost btn-circle avatar" : ''}`}>
+                       {user ? <div className="w-10 rounded-full">
                             <img src={user?.photoURL} />
-                        </div>
+                        </div>: <button className="btn btn-outline btn-secondary btn-sm"><IoMdLogIn className='text-2xl'></IoMdLogIn></button>}
                     </label>
                     <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
                         {user ? <>
-                            <li>
-                                <Link className="justify-between">
-                                    Profile
-                                    <span className="badge">New</span>
-                                </Link>
-                            </li>
                             <li><button onClick={signOut}>Logout</button></li>
                         </> : <>
                             <li><Link to="/login">Login</Link></li>

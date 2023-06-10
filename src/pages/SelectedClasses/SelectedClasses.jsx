@@ -4,11 +4,28 @@ import { useQuery } from '@tanstack/react-query';
 import { MdAutoDelete, MdPayments } from 'react-icons/md'
 const SelectedClasses = () => {
 
+ 
     const [axiosSecure] = useAxiosSecure();
-    const { data: selectedClasses = [] } = useQuery(['selectedClasses'], async () => {
+    const { data: selectedClasses = [], isLoading: loading, refetch } = useQuery(['selectedClasses'], async () => {
         const res = await axiosSecure.get('/selectedClass')
         return res.data;
     })
+   
+
+    const handleDeleteItem = id => {
+        
+        axiosSecure.delete(`/selectedClass/${id}`).then(res => {
+            if (res.data.deletedCount > 0) {
+                alert('Deleted successfully');
+                refetch();
+            }
+        }).catch(error => {
+            alert(error.message);
+        })
+    }
+
+
+
     return (
         <div className='w-full'>
             <h3 className="text-center font-bold">Users Classes</h3>
@@ -37,7 +54,7 @@ const SelectedClasses = () => {
                                 <td>{selectedItem.price}</td>
                                 <td>{selectedItem.seats}</td>
                                 <td>
-                                    <button className='p-4 text-4xl rounded-2xl bg-orange-200 hover:bg-orange-400'><MdAutoDelete></MdAutoDelete></button>
+                                    <button onClick={() => handleDeleteItem(selectedItem._id)} className='p-4 text-4xl rounded-2xl bg-orange-200 hover:bg-orange-400'><MdAutoDelete></MdAutoDelete></button>
                                 </td>
                                 <td>
                                     <button className='p-4 text-4xl rounded-2xl bg-orange-200 hover:bg-orange-400'><MdPayments></MdPayments></button>
