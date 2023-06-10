@@ -1,16 +1,18 @@
-import { useQuery } from '@tanstack/react-query';
+// import { useQuery } from '@tanstack/react-query';
 import React from 'react';
-import useAxiosSecure from '../../hooks/useAxiosSecure';
+// import useAxiosSecure from '../../hooks/useAxiosSecure';
 import InstructorCard from './InstructorCard';
+import useInstructorList from '../../hooks/useInstructorList';
 
 const DisplayInstructor = () => {
-    const [axiosSecure] = useAxiosSecure();
-    const { data: instructors = [] } = useQuery(['instructors'], async () => {
-        const res = await axiosSecure.get('/instructor/list')
-        console.log(res.data)
-        return res.data;
-    })
+    // const [axiosSecure] = useAxiosSecure();
+    // const { data: instructors = [] } = useQuery(['instructors'], async () => {
+    //     const res = await axiosSecure.get('/instructor/list')
+    //     console.log(res.data);
+    //     return res.data;
+    // })
 
+    const [instructors]=useInstructorList();
 
     return (
         <div>

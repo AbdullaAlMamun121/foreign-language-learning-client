@@ -7,7 +7,6 @@ const DisplayClasses = () => {
     const [axiosSecure] = useAxiosSecure();
     const { data: classes = [] } = useQuery(['classes'], async () => {
         const res = await axiosSecure.get('/instructor/classes')
-        console.log(res.data)
         return res.data;
     })
     return (
