@@ -5,7 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 const MyClasses = () => {
 
     const [axiosSecure] = useAxiosSecure();
-    const { data: classes = [] } = useQuery(['classes'], async () => {
+    const { data: instructorClasses = [] } = useQuery(['instructorClasses'], async () => {
         const res = await axiosSecure.get('/instructors')
         return res.data;
     })
@@ -32,7 +32,7 @@ const MyClasses = () => {
                         </thead>
                         <tbody>
                             {
-                                classes.map((item, index) => <tr key={item._id}>
+                                instructorClasses.map((item, index) => <tr key={item._id}>
                                     <th>{index + 1}</th>
                                     <td>{item.className}</td>
                                     <td> <img className='w-10 h-10 rounded-sm' src={item.image} alt="class image" /> </td>
@@ -41,8 +41,7 @@ const MyClasses = () => {
                                     <td>{item.price}</td>
                                     <td>0</td>
                                     <td>{item.status}</td>
-                                    {item.status !== 'pending' && 'approve' ? <td>FeedBack</td> : ''
-                                    }
+                                    {item.status !== 'pending' && 'approve' ? <td>{item?.feedback}</td> : ''}
 
                                 </tr>)
                             }

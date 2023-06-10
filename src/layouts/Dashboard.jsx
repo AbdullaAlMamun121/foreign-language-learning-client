@@ -5,9 +5,6 @@ import useInstructor from '../hooks/useInstructor';
 
 const Dashboard = () => {
 
-    // TODO: load data from server to have dynamic admin
-    // const [isAdmin] = useAdmin();
-    // const {isInstructor} = useInstructor();
     const [isAdmin] = useAdmin();
     const [isInstructor] = useInstructor();
     return (
@@ -42,7 +39,7 @@ const Dashboard = () => {
                                     </>
                                 ) : (
                                     <>
-                                        <li><Link to="/dashboard/userHome">Dashboard Home</Link></li>
+                                        <li><Link to="/dashboard/selectedClasses">Selected Class</Link></li>
                                         <li><Link to="/">Go Home</Link></li>
 
                                     </>

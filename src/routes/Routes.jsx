@@ -13,6 +13,8 @@ import DisplayClasses from "../pages/DisplayClasses/DisplayClasses";
 import PrivateRoute from "./PrivateRoute";
 import AdminRoute from "./AdminRoute";
 import InstructorRoute from "./InstructorRoute";
+import SelectedClasses from "../pages/SelectedClasses/SelectedClasses";
+import StudentRoute from "./StudentRoute";
 
 const router = createBrowserRouter([
   {
@@ -61,6 +63,10 @@ const router = createBrowserRouter([
       {
         path: 'myClasses',
         element: <PrivateRoute><InstructorRoute><MyClasses></MyClasses></InstructorRoute></PrivateRoute>
+      },
+      {
+        path: 'selectedClasses',
+        element: <PrivateRoute><StudentRoute><SelectedClasses></SelectedClasses></StudentRoute></PrivateRoute>
       }
     ]
   }

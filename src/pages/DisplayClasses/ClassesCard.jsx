@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import useAllUsers from '../../hooks/useAllUsers';
 import useAuth from '../../hooks/useAuth';
+import { saveClassesInDd } from '../../api/auth';
 
 const ClassesCard = ({ classList }) => {
     const [userRole, setUserRole] = useState([]);
+    const [selectedItem, setSelectedItem] = useState([]);
     const [isUsers, isUsersLoading] = useAllUsers();
     const { user } = useAuth();
 
@@ -15,11 +17,14 @@ const ClassesCard = ({ classList }) => {
     }, [isUsers, user]);
 
     console.log(userRole);
-
+    const handleBooked = (item,email) => {
+        setSelectedItem(item);
+        saveClassesInDd(item,email)
+    }
     const { image, className, name, seats, price } = classList;
 
     return (
-        <div>
+        <>
             <div className={`card shadow-xl ${seats === 0 ? 'bg-red-500' : 'bg-base-100'}`}>
                 <figure className="px-10 pt-10">
                     <img src={image} alt="Instructor Image" className="rounded-xl" />
@@ -42,15 +47,15 @@ const ClassesCard = ({ classList }) => {
                         {price}
                     </p>
 
-                    <button
+                    <button onClick={() => handleBooked(classList,user?.email)}
                         disabled={(userRole[0] === 'admin' || userRole[0] === 'instructor') || seats === 0}
                         className="btn btn-outline btn-accent"
                     >
-                        Select
+                       {selectedItem ? 'Selected' : 'Select'}
                     </button>
                 </div>
             </div>
-        </div>
+        </>
     );
 };
 
