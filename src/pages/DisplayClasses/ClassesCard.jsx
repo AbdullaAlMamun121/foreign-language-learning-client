@@ -5,9 +5,10 @@ const ClassesCard = ({ classList }) => {
 
     const [instructors] = useInstructorList();
     const instructorObject = instructors.reduce((obj, instructor) => {
-        obj[instructors._id] = instructor;
+        obj[instructor.role] = instructor;
         return obj;
-    }, {})
+    },{})
+    console.log(instructorObject.instructor.role);
 
     const { image, className, name, seats, price, } = classList;
 
@@ -22,7 +23,7 @@ const ClassesCard = ({ classList }) => {
                     <p><span className='text-orange-500 capitalize'>Instructor Name:</span>{name}</p>
                     <p><span className='text-orange-500 capitalize'> Available seats:</span>{seats}</p>
                     <p><span className='text-orange-500 capitalize'>Price:</span>{price}</p>
-                    <button disabled={instructorObject.role === "admin" || instructorObject.role === "instructor" || seats === 0} className="btn btn-outline btn-accent">Select</button>
+                    <button disabled={instructorObject?.instructor?.role === "admin" || instructorObject?.instructor?.role === "instructor" || seats === 0} className="btn btn-outline btn-accent">Select</button>
 
                 </div>
             </div>
