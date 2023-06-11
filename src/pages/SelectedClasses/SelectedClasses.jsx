@@ -30,7 +30,7 @@ const SelectedClasses = () => {
 
 
     return (
-        <div className='w-full'>
+        <div className='w-100'>
             <h3 className="text-center text-3xl font-bold mb-4">Your Selected Classes</h3>
             <div className="overflow-x-auto">
                 <table className="table">
@@ -57,12 +57,12 @@ const SelectedClasses = () => {
                                 <td>{selectedItem.price}</td>
                                 <td>{selectedItem.seats}</td>
                                 <td>
-                                    <button onClick={() => handleDeleteItem(selectedItem._id)} className='p-4 text-4xl rounded-2xl bg-orange-200 hover:bg-orange-400'><MdAutoDelete></MdAutoDelete></button>
+                                    <button onClick={() => handleDeleteItem(selectedItem._id)} className=' text-2xl rounded-2xl bg-orange-200 hover:bg-orange-400'><MdAutoDelete></MdAutoDelete></button>
                                 </td>
                                 <td>
                                     {/* payment button */}
                                     <Link to={`/dashboard/payment?price=${selectedItem.price}&seats=${selectedItem.seats}`}>
-                                        <button className='p-4 text-4xl rounded-2xl bg-orange-200 hover:bg-orange-400'>
+                                        <button className=' text-2xl rounded-2xl bg-orange-200 hover:bg-orange-400'>
                                             <MdPayments />
                                         </button>
                                     </Link>

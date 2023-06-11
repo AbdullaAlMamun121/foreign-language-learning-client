@@ -32,7 +32,7 @@ const ManageUsers = () => {
     }
 
     return (
-        <div className='w-full'>
+        <div className='w-100'>
             <h3 className="text-center font-bold">Manage users</h3>
             <div className="overflow-x-auto">
                 <table className="table">
@@ -53,12 +53,12 @@ const ManageUsers = () => {
                                 <td>{user.name}</td>
                                 <td>{user.email}</td>
                                 <td>
-                                    {user.role !== 'admin' ? (<button onClick={() => handleUpdateRole('admin', user)} className='p-4 text-4xl rounded-2xl bg-orange-200 hover:bg-orange-400'><MdAdminPanelSettings></MdAdminPanelSettings></button>) : (
+                                    {user.role !== 'admin' ? (<button onClick={() => handleUpdateRole('admin', user)} className=' text-2xl rounded-2xl bg-orange-200 hover:bg-orange-400'><MdAdminPanelSettings></MdAdminPanelSettings></button>) : (
                                         'admin'
                                     )}
                                 </td>
                                 <td>
-                                    {user.role !== 'instructor' ? (<button onClick={() => handleUpdateRole('instructor', user)} className='p-4 text-4xl rounded-2xl bg-orange-200 hover:bg-orange-400'><MdAdminPanelSettings></MdAdminPanelSettings></button>) : (
+                                    {user.role !== 'instructor' ? (<button onClick={() => handleUpdateRole('instructor', user)} className=' text-2xl rounded-2xl bg-orange-200 hover:bg-orange-400'><MdAdminPanelSettings></MdAdminPanelSettings></button>) : (
                                         'instructor'
                                     )}
                                 </td>

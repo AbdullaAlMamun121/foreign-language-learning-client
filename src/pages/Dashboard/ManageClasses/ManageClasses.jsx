@@ -62,7 +62,7 @@ const ManageClasses = () => {
 
     return (
         <>
-            <div className='w-full'>
+            <div className='w-100'>
                 <h3 className="text-center font-bold">Users Classes</h3>
                 <div className="overflow-x-auto">
                     <table className="table">
@@ -97,7 +97,7 @@ const ManageClasses = () => {
                                             <button
                                                 onClick={() => handleUpdateStatus('approved', item._id)}
                                                 disabled={clickedStatus !== null}
-                                                className={`p-4 text-4xl rounded-2xl bg-orange-200 hover:bg-orange-400 ${clickedStatus === 'approved' ? 'opacity-50 cursor-not-allowed' : ''
+                                                className={`text-2xl rounded-2xl bg-orange-200 hover:bg-orange-400 ${clickedStatus === 'approved' ? 'opacity-50 cursor-not-allowed' : ''
                                                     }`}
                                             >
                                                 <FcApproval />
@@ -111,7 +111,7 @@ const ManageClasses = () => {
                                             <button
                                                 onClick={() => handleUpdateStatus('denied', item._id)}
                                                 disabled={clickedStatus !== null}
-                                                className={`p-4 text-4xl rounded-2xl bg-orange-200 hover:bg-orange-400 ${clickedStatus === 'denied' ? 'opacity-50 cursor-not-allowed' : ''
+                                                className={` text-2xl rounded-2xl bg-orange-200 hover:bg-orange-400 ${clickedStatus === 'denied' ? 'opacity-50 cursor-not-allowed' : ''
                                                     }`}
                                             >
                                                 <FcDisapprove />
