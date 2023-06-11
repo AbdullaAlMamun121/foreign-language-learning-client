@@ -14,6 +14,7 @@ const MyClasses = () => {
     });
 
     const handleUpdateClasses = (data) => {
+        console.log(data)
         fetch(`http://localhost:5000/updateMyClasses/${data._id}`, {
             method: 'PUT',
             headers: {

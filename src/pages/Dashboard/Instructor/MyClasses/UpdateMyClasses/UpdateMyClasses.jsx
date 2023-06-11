@@ -2,13 +2,14 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 
 const UpdateMyClasses = (props) => {
+    console.log(props)
     const { register, handleSubmit, formState: { errors } } = useForm();
     const { handleUpdateClasses, onHide } = props;
 
-    const { className, email, price,seats } = props?.item || {};
-
+    const { _id, className, email, price, seats } = props?.item || {};
+    console.log(typeof (seats))
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center">
+        <div {...props} className="fixed inset-0 z-50 flex items-center justify-center">
             <div className="bg-white rounded-lg w-3/4 p-6">
                 <h2 className="text-2xl font-bold mb-4 text-center">Update Class</h2>
                 <div className="flex justify-end items-center mb-4">
@@ -36,9 +37,10 @@ const UpdateMyClasses = (props) => {
                     </div>
                     <div className="mb-3">
                         <label className="form-label">Seats:</label>
-                        <input type="text" className="form-input w-3/4 px-4 py-2 rounded-lg border-gray-300 focus:outline-none focus:ring focus:border-blue-300" {...register('name', { required: true })} defaultValue={seats} />
+                        <input type="text" className="form-input w-3/4 px-4 py-2 rounded-lg border-gray-300 focus:outline-none focus:ring focus:border-blue-300" {...register('seats', { required: true })} defaultValue={seats} />
                         {errors.seats && <span className="text-danger">This field is required</span>}
                     </div>
+                    <input type="text" className="form-control hidden md:hidden lg:hidden" {...register('_id', { required: true })} value={_id} />
                     {/* Add more input fields here */}
                     <button type="submit" className="btn btn-primary w-1/4 mx-auto">Update</button>
                 </form>
