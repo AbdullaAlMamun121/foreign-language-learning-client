@@ -7,6 +7,7 @@ import { BiMailSend } from 'react-icons/bi';
 const ManageClasses = () => {
 
     const [feedBack, setFeedback] = useState('');
+    const [itemId, setItemId] = useState();
 
     const [axiosSecure] = useAxiosSecure();
     const { data: classes = [], refetch } = useQuery(['classes'], async () => {
@@ -14,7 +15,7 @@ const ManageClasses = () => {
         console.log(res.data)
         return res.data;
     })
-    
+
     const token = localStorage.getItem('access-token');
     const handleUpdateStatus = async (status, id) => {
         try {
@@ -33,7 +34,7 @@ const ManageClasses = () => {
         }
     }
     const handleFeedBack = async (id) => {
-        console.log(feedBack)
+
         try {
             const response = await fetch(`http://localhost:5000/instructors/${id}`, {
                 method: 'PATCH',
@@ -44,12 +45,17 @@ const ManageClasses = () => {
                 body: JSON.stringify({ feedBack })
             })
             const data = await response.json();
+            console.log(data)
+            alert('Feedback send successfully');
             refetch();
         } catch (error) {
             console.log(error)
         }
     }
-
+    const handleOpenModal = (id) => {
+        setItemId(id);
+        window.my_modal_4.showModal();
+    };
 
     return (
         <>
@@ -66,7 +72,7 @@ const ManageClasses = () => {
                                 <th>Email</th>
                                 <th>Seats</th>
                                 <th>Price</th>
-                                <th>Action</th>
+                                <th>Status</th>
                                 <th>Approved</th>
                                 <th>Denied</th>
                                 <th>Feedback</th>
@@ -84,32 +90,42 @@ const ManageClasses = () => {
                                     <td>{item.status}</td>
 
                                     <td>
-                                        {item.status !== 'approved' ? (<button onClick={() => handleUpdateStatus('approved', item._id)} className='p-4 text-4xl rounded-2xl bg-orange-200 hover:bg-orange-400'><FcApproval></FcApproval></button>) : (
+                                        {item.status !== 'approved' ? (<button onClick={() => handleUpdateStatus('approved', item._id)} disabled={item.status === 'denied'} className='p-4 text-4xl rounded-2xl bg-orange-200 hover:bg-orange-400'><FcApproval></FcApproval></button>) : (
                                             'approved'
                                         )}
                                     </td>
                                     <td>
-                                        {item.status !== 'denied' ? (<button onClick={() => handleUpdateStatus('denied', item._id)} className='p-4 text-4xl rounded-2xl bg-orange-200 hover:bg-orange-400'><FcDisapprove></FcDisapprove></button>) : (
+                                        {item.status !== 'denied' ? (<button onClick={() => handleUpdateStatus('denied', item._id)} disabled={item.status === 'approved'} className='p-4 text-4xl rounded-2xl bg-orange-200 hover:bg-orange-400'><FcDisapprove></FcDisapprove></button>) : (
                                             'denied'
                                         )}
                                     </td>
 
-                                    <td>{item.status !== 'approved' ? <div className='flex items-center gap-4'>
-                                        <input type="textarea"
-                                            onChange={(e) => setFeedback(e.target.value)}
-                                            className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:border-blue-500" /><BiMailSend className="text-5xl" onClick={() => handleFeedBack(item._id)}></BiMailSend>
-                                    </div> : ('')}
+                                    <td>{item.status !== 'approved' ? <button className="btn" onClick={() => handleOpenModal(item._id)}>Feedback</button> : ('')}
                                     </td>
 
 
                                 </tr>)
+
                             }
 
                         </tbody>
                     </table>
                 </div>
             </div>
-
+            <dialog id="my_modal_4" className="modal">
+                <form method="dialog" className="modal-box w-11/12 max-w-5xl">
+                    <h3 className="font-bold text-lg">Hello!</h3>
+                    <p className="py-4">
+                        <input type="textarea"
+                            onChange={(e) => setFeedback(e.target.value)}
+                            className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:border-blue-500" /><BiMailSend className="text-5xl" onClick={() => handleFeedBack(itemId)}></BiMailSend>
+                    </p>
+                    <div className="modal-action">
+                        {/* if there is a button, it will close the modal */}
+                        <button className="btn">Close</button>
+                    </div>
+                </form>
+            </dialog>
         </>
     );
 };
