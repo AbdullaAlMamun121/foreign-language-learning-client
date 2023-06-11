@@ -1,9 +1,24 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import useAdmin from '../hooks/useAdmin';
 import useInstructor from '../hooks/useInstructor';
+import useAllUsers from '../hooks/useAllUsers';
+import useAuth from '../hooks/useAuth';
 
 const Dashboard = () => {
+
+    const [userRole, setUserRole] = useState([]);
+    const [isUsers] = useAllUsers();
+    const { user,loading } = useAuth();
+
+    useEffect(() => {
+        if (!loading && isUsers && isUsers.length > 0) {
+            const loggedInUserRole = isUsers.find(u => u.email === user?.email)?.role;
+            setUserRole(loggedInUserRole ? [loggedInUserRole] : []);
+        }
+    }, [loading,isUsers,user]);
+
+
 
     const [isAdmin] = useAdmin();
     const [isInstructor] = useInstructor();
@@ -23,15 +38,17 @@ const Dashboard = () => {
                         {/* Sidebar content here */}
                         {isAdmin ? (
                             <>
+                                <kbd className="kbd kbd-lg">Role: {userRole[0]}</kbd>
                                 <li><Link to="/dashboard/manageClasses">Manage Classes</Link></li>
                                 <li><Link to="/dashboard/manageUsers">Manage Users</Link></li>
-                                <li><Link to="/">Go Home</Link></li>
+
 
                             </>
                         ) : (
                             <>
                                 {isInstructor ? (
                                     <>
+                                        <kbd className="kbd kbd-lg">Role:{userRole[0]}</kbd>
                                         <li><Link to="/dashboard/addClasses">Add Class</Link></li>
                                         <li><Link to="/dashboard/myClasses">My Class</Link></li>
                                         <li><Link to="/">Go Home</Link></li>
@@ -39,6 +56,7 @@ const Dashboard = () => {
                                     </>
                                 ) : (
                                     <>
+                                        <kbd className="kbd kbd-lg">Role:{userRole[0]}</kbd>
                                         <li><Link to="/dashboard/selectedClasses">Selected Class</Link></li>
                                         <li><Link to="/">Go Home</Link></li>
 
@@ -57,3 +75,6 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
+
+
+

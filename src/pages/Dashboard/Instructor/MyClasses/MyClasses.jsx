@@ -6,7 +6,7 @@ import UpdateMyClasses from './UpdateMyClasses/UpdateMyClasses';
 const MyClasses = () => {
     const [modalShow, setModalShow] = useState({});
     const [control, setControl] = useState(false);
-
+    const token = localStorage.getItem('access-token');
     const [axiosSecure] = useAxiosSecure();
     const { data: instructorClasses = [] } = useQuery(['instructorClasses'], async () => {
         const res = await axiosSecure.get('/instructors');
@@ -19,6 +19,7 @@ const MyClasses = () => {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json',
+                 authorization: `bearer ${token}`,
             },
             body: JSON.stringify(data),
         })

@@ -7,14 +7,14 @@ const ClassesCard = ({ classList }) => {
     const [userRole, setUserRole] = useState([]);
     const [selectedItem, setSelectedItem] = useState([]);
     const [isUsers, isUsersLoading] = useAllUsers();
-    const { user } = useAuth();
+    const { user,loading } = useAuth();
 
     useEffect(() => {
-        if (isUsers) {
+        if (!loading && isUsers && isUsers.length > 0) {
             const loggedInUserRole = isUsers.find(u => u.email === user?.email)?.role;
             setUserRole(loggedInUserRole ? [loggedInUserRole] : []);
         }
-    }, [isUsers, user]);
+    }, [loading,isUsers,user]);
 
     console.log(userRole);
     const handleBooked = (item,email) => {
