@@ -71,7 +71,7 @@ const Login = () => {
                             <input type='email'
                                 name='email'
                                 placeholder='Enter Your Mail'
-                                className='w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-rose-500 bg-green-200 text-green-900'
+                                className='w-3/4 px-3 py-2 border rounded-md border-gray-300 focus:outline-rose-500 bg-green-200 text-green-900'
                                 data-temp-mail-org='0'
                                 {...register("email", { required: true })} />
                             {errors.email && <span>Email is required</span>}
@@ -85,25 +85,26 @@ const Login = () => {
                             <input type={showPassword ? 'text' : 'password'}
                                 name='password'
                                 placeholder='Enter Your Mail'
-                                className='w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-rose-500 bg-green-200 text-green-900'
+                                className='w-3/4 px-3 py-2 border rounded-md border-gray-300 focus:outline-rose-500 bg-green-200 text-green-900'
                                 data-temp-mail-org='0'
                                 {...register("password", { required: true })} />
                             {errors.password && <span>Password is required</span>}
                         </div>
-                        <div className='flex flex-row items-center '>
+                        <div className='w-1/4 flex flex-row items-center justify-center'>
+                            <label htmlFor='showPassword' className='text-sm text-center w-full'>Show</label>
                             <input type='checkbox'
                                 onChange={passwordToggle}
                                 checked={showPassword}
                             />
-                            <label htmlFor='showPassword' className='ml-2 text-sm text-center'>Show Password</label>
+
                         </div>
                     </div>
 
                     <div>
-                      
+
                         <button
                             type='submit'
-                            className='bg-rose-950 w-full rounded-md py-3 text-white'
+                            className='bg-rose-950 w-3/4 rounded-md  text-white'
                         >
                             {!loading ? (
                                 <ImSpinner6 className='m-auto animate-spin' size={22} />

@@ -51,7 +51,8 @@ const ClassesCard = ({ classList }) => {
                         disabled={(userRole[0] === 'admin' || userRole[0] === 'instructor') || seats === 0}
                         className="btn btn-outline btn-accent"
                     >
-                       {selectedItem ? 'Selected' : 'Select'}
+                        Select
+                       {/* {selectedItem ? 'Selected' : 'Select'} */}
                     </button>
                 </div>
             </div>

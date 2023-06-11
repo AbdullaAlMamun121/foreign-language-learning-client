@@ -1,19 +1,23 @@
-import React from 'react';
+
 import useAxiosSecure from '../../hooks/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
 import { MdAutoDelete, MdPayments } from 'react-icons/md'
+import { Link } from 'react-router-dom';
 const SelectedClasses = () => {
 
- 
+
     const [axiosSecure] = useAxiosSecure();
     const { data: selectedClasses = [], isLoading: loading, refetch } = useQuery(['selectedClasses'], async () => {
         const res = await axiosSecure.get('/selectedClass')
+        // res.data.map(item => {
+        //     setTotalPrice(item.price)
+        // })
         return res.data;
     })
-   
+
 
     const handleDeleteItem = id => {
-        
+
         axiosSecure.delete(`/selectedClass/${id}`).then(res => {
             if (res.data.deletedCount > 0) {
                 alert('Deleted successfully');
@@ -25,10 +29,9 @@ const SelectedClasses = () => {
     }
 
 
-
     return (
         <div className='w-full'>
-            <h3 className="text-center font-bold">Users Classes</h3>
+            <h3 className="text-center text-3xl font-bold mb-4">Your Selected Classes</h3>
             <div className="overflow-x-auto">
                 <table className="table">
 
@@ -57,7 +60,12 @@ const SelectedClasses = () => {
                                     <button onClick={() => handleDeleteItem(selectedItem._id)} className='p-4 text-4xl rounded-2xl bg-orange-200 hover:bg-orange-400'><MdAutoDelete></MdAutoDelete></button>
                                 </td>
                                 <td>
-                                    <button className='p-4 text-4xl rounded-2xl bg-orange-200 hover:bg-orange-400'><MdPayments></MdPayments></button>
+                                    {/* payment button */}
+                                    <Link to={`/dashboard/payment?price=${selectedItem.price}&seats=${selectedItem.seats}`}>
+                                        <button className='p-4 text-4xl rounded-2xl bg-orange-200 hover:bg-orange-400'>
+                                            <MdPayments />
+                                        </button>
+                                    </Link>
                                 </td>
                             </tr>)
                         }
@@ -65,6 +73,7 @@ const SelectedClasses = () => {
                     </tbody>
                 </table>
             </div>
+
         </div>
     );
 };

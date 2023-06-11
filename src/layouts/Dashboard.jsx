@@ -9,19 +9,21 @@ const Dashboard = () => {
 
     const [userRole, setUserRole] = useState([]);
     const [isUsers] = useAllUsers();
-    const { user,loading } = useAuth();
+    const { user, loading } = useAuth();
 
     useEffect(() => {
         if (!loading && isUsers && isUsers.length > 0) {
             const loggedInUserRole = isUsers.find(u => u.email === user?.email)?.role;
             setUserRole(loggedInUserRole ? [loggedInUserRole] : []);
         }
-    }, [loading,isUsers,user]);
-
-
+    }, [loading, isUsers, user]);
 
     const [isAdmin] = useAdmin();
     const [isInstructor] = useInstructor();
+
+
+
+
     return (
         <div>
             <div className="drawer lg:drawer-open">
@@ -29,7 +31,7 @@ const Dashboard = () => {
                 <div className="drawer-content flex flex-col items-center justify-center">
                     {/* Page content here */}
                     <Outlet></Outlet>
-                    <label htmlFor="my-drawer-2" className="btn btn-primary drawer-button lg:hidden">Open drawer</label>
+                    <label htmlFor="my-drawer-2" className="btn btn-primary drawer-button">Open drawer</label>
 
                 </div>
                 <div className="drawer-side">
@@ -41,6 +43,7 @@ const Dashboard = () => {
                                 <kbd className="kbd kbd-lg">Role: {userRole[0]}</kbd>
                                 <li><Link to="/dashboard/manageClasses">Manage Classes</Link></li>
                                 <li><Link to="/dashboard/manageUsers">Manage Users</Link></li>
+                                <li><Link to="/">Home Page</Link></li>
 
 
                             </>
