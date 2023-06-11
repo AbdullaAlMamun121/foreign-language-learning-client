@@ -7,6 +7,7 @@ import { BiMailSend } from 'react-icons/bi';
 const ManageClasses = () => {
 
     const [feedBack, setFeedback] = useState('');
+    const [clickedStatus, setClickedStatus] = useState(null);
     const [itemId, setItemId] = useState();
 
     const [axiosSecure] = useAxiosSecure();
@@ -18,6 +19,7 @@ const ManageClasses = () => {
 
     const token = localStorage.getItem('access-token');
     const handleUpdateStatus = async (status, id) => {
+        setClickedStatus(status);
         try {
             const response = await fetch(`http://localhost:5000/instructors/${id}/status`, {
                 method: 'PATCH',
@@ -52,6 +54,7 @@ const ManageClasses = () => {
             console.log(error)
         }
     }
+
     const handleOpenModal = (id) => {
         setItemId(id);
         window.my_modal_4.showModal();
@@ -90,12 +93,30 @@ const ManageClasses = () => {
                                     <td>{item.status}</td>
 
                                     <td>
-                                        {item.status !== 'approved' ? (<button onClick={() => handleUpdateStatus('approved', item._id)} disabled={item.status === 'denied'} className='p-4 text-4xl rounded-2xl bg-orange-200 hover:bg-orange-400'><FcApproval></FcApproval></button>) : (
+                                        {item.status !== 'approved' ? (
+                                            <button
+                                                onClick={() => handleUpdateStatus('approved', item._id)}
+                                                disabled={clickedStatus !== null}
+                                                className={`p-4 text-4xl rounded-2xl bg-orange-200 hover:bg-orange-400 ${clickedStatus === 'approved' ? 'opacity-50 cursor-not-allowed' : ''
+                                                    }`}
+                                            >
+                                                <FcApproval />
+                                            </button>
+                                        ) : (
                                             'approved'
                                         )}
                                     </td>
                                     <td>
-                                        {item.status !== 'denied' ? (<button onClick={() => handleUpdateStatus('denied', item._id)} disabled={item.status === 'approved'} className='p-4 text-4xl rounded-2xl bg-orange-200 hover:bg-orange-400'><FcDisapprove></FcDisapprove></button>) : (
+                                        {item.status !== 'denied' ? (
+                                            <button
+                                                onClick={() => handleUpdateStatus('denied', item._id)}
+                                                disabled={clickedStatus !== null}
+                                                className={`p-4 text-4xl rounded-2xl bg-orange-200 hover:bg-orange-400 ${clickedStatus === 'denied' ? 'opacity-50 cursor-not-allowed' : ''
+                                                    }`}
+                                            >
+                                                <FcDisapprove />
+                                            </button>
+                                        ) : (
                                             'denied'
                                         )}
                                     </td>
