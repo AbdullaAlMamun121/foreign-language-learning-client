@@ -2,12 +2,14 @@ import React, { useEffect, useState } from 'react';
 import useAllUsers from '../../hooks/useAllUsers';
 import useAuth from '../../hooks/useAuth';
 import { saveClassesInDd } from '../../api/auth';
+import { useNavigate } from 'react-router-dom';
 
 const ClassesCard = ({ classList }) => {
     const [userRole, setUserRole] = useState([]);
     const [selectedItem, setSelectedItem] = useState([]);
     const [isUsers, isUsersLoading] = useAllUsers();
     const { user,loading } = useAuth();
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (!loading && isUsers && isUsers.length > 0) {
@@ -23,6 +25,7 @@ const ClassesCard = ({ classList }) => {
             saveClassesInDd(item,email)
         }else{
             alert('Login first');
+            navigate('/login');
         }
        
     }

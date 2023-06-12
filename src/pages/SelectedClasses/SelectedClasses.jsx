@@ -8,10 +8,16 @@ const SelectedClasses = () => {
 
     const [axiosSecure] = useAxiosSecure();
     const { data: selectedClasses = [], isLoading: loading, refetch } = useQuery(['selectedClasses'], async () => {
-        const res = await axiosSecure.get('/selectedClass')
-
-        return res.data;
-    })
+        try {
+            const res = await axiosSecure.get('/selectedClass');
+            console.log('from selectedClasses', res);
+            return res.data;
+        } catch (error) {
+            console.error('Error fetching selected classes:', error);
+            throw error; 
+        }
+    });
+    
 
 
     const handleDeleteItem = id => {
