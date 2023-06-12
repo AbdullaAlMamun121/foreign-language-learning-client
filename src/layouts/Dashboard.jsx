@@ -4,6 +4,7 @@ import useAdmin from '../hooks/useAdmin';
 import useInstructor from '../hooks/useInstructor';
 import useAllUsers from '../hooks/useAllUsers';
 import useAuth from '../hooks/useAuth';
+import { Fade } from 'react-awesome-reveal';
 
 const Dashboard = () => {
 
@@ -31,7 +32,7 @@ const Dashboard = () => {
                 <div className="drawer-content flex flex-col items-center justify-center">
                     {/* Page content here */}
                     <Outlet></Outlet>
-                    <label htmlFor="my-drawer-2" className="btn btn-primary drawer-button">Open drawer</label>
+                    <label htmlFor="my-drawer-2" className="btn btn-primary drawer-button">Open SideBar</label>
 
                 </div>
                 <div className="drawer-side">
@@ -41,9 +42,12 @@ const Dashboard = () => {
                         {isAdmin ? (
                             <>
                                 <kbd className="kbd kbd-lg">Role: {userRole[0]}</kbd>
-                                <li><Link to="/dashboard/manageClasses">Manage Classes</Link></li>
-                                <li><Link to="/dashboard/manageUsers">Manage Users</Link></li>
-                                <li><Link to="/">Home Page</Link></li>
+                                <Fade direction="right">
+                                    <li><Link to="/dashboard/manageClasses">Manage Classes</Link></li>
+                                    <li><Link to="/dashboard/manageUsers">Manage Users</Link></li>
+                                    <li><Link to="/">Home Page</Link></li>
+                                </Fade>
+
 
 
                             </>
@@ -52,16 +56,20 @@ const Dashboard = () => {
                                 {isInstructor ? (
                                     <>
                                         <kbd className="kbd kbd-lg">Role:{userRole[0]}</kbd>
-                                        <li><Link to="/dashboard/addClasses">Add Class</Link></li>
-                                        <li><Link to="/dashboard/myClasses">My Class</Link></li>
-                                        <li><Link to="/">Go Home</Link></li>
+                                        <Fade direction="right">
+                                            <li><Link to="/dashboard/addClasses">Add Class</Link></li>
+                                            <li><Link to="/dashboard/myClasses">My Class</Link></li>
+                                            <li><Link to="/">Go Home</Link></li>
+                                        </Fade>
 
                                     </>
                                 ) : (
                                     <>
                                         <kbd className="kbd kbd-lg">Role:{userRole[0]}</kbd>
-                                        <li><Link to="/dashboard/selectedClasses">Selected Class</Link></li>
-                                        <li><Link to="/">Go Home</Link></li>
+                                        <Fade direction="right">
+                                            <li><Link to="/dashboard/selectedClasses">Selected Class</Link></li>
+                                            <li><Link to="/">Go Home</Link></li>
+                                        </Fade>
 
                                     </>
                                 )}

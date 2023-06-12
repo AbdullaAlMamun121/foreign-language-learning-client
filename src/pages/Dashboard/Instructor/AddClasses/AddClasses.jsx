@@ -20,8 +20,9 @@ const AddClasses = () => {
         }).then(res => res.json()).then(imgRes => {
             if (imgRes.success) {
                 const imageURL = imgRes.data.display_url;
+                const instructorImage = user?.photoURL; 
                 const { className, email, name, price, seats } = data;
-                const newItems = { className, email, name, price: parseFloat(price), seats: parseInt(seats), image: imageURL };
+                const newItems = { className, email, name, price: parseFloat(price), seats: parseInt(seats), image: imageURL,instructorImage };
                 axiosSecure.post('/instructors', newItems).then(data => {
                     if (data.data.insertedId) {
                         reset();

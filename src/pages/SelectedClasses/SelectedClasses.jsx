@@ -9,9 +9,7 @@ const SelectedClasses = () => {
     const [axiosSecure] = useAxiosSecure();
     const { data: selectedClasses = [], isLoading: loading, refetch } = useQuery(['selectedClasses'], async () => {
         const res = await axiosSecure.get('/selectedClass')
-        // res.data.map(item => {
-        //     setTotalPrice(item.price)
-        // })
+
         return res.data;
     })
 
@@ -61,7 +59,7 @@ const SelectedClasses = () => {
                                 </td>
                                 <td>
                                     {/* payment button */}
-                                    <Link to={`/dashboard/payment?price=${selectedItem.price}&seats=${selectedItem.seats}`}>
+                                    <Link to={`/dashboard/payment?price=${selectedItem.price}&seats=${selectedItem.seats}&itemId=${selectedItem._id}&email=${selectedItem.instructorEmail}`}>
                                         <button className=' text-2xl rounded-2xl bg-orange-200 hover:bg-orange-400'>
                                             <MdPayments />
                                         </button>
@@ -73,7 +71,11 @@ const SelectedClasses = () => {
                     </tbody>
                 </table>
             </div>
-
+            <Link to="/dashboard">
+                <button className=' text-2xl rounded-2xl bg-orange-200 hover:bg-orange-400'>
+                    Go Back 
+                </button>
+            </Link>
         </div>
     );
 };

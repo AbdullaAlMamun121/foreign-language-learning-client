@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import useAxiosSecure from '../../hooks/useAxiosSecure';
 import useAuth from '../../hooks/useAuth';
 import './CheckoutForm.css';
-const CheckoutForm = ({ price, seats }) => {
+const CheckoutForm = ({ price, seats, itemId,email }) => {
     const { user } = useAuth();
     const stripe = useStripe();
     const elements = useElements();
@@ -72,11 +72,13 @@ const CheckoutForm = ({ price, seats }) => {
             setTransactionId(paymentIntent.id);
             const payment = {
                 email: user?.email,
+                selerEmail:email,
                 transactionId: paymentIntent.id,
                 date: new Date(),
                 seats: updatedSeats,
                 status: 'pending',
                 price,
+                itemId,
             }
             axiosSecure.post('/payments', payment)
                 .then(res => {
@@ -84,6 +86,7 @@ const CheckoutForm = ({ price, seats }) => {
                         alert('payment success')
                     }
                 })
+
         }
     }
 
