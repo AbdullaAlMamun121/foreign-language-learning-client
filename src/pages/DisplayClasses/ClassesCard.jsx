@@ -18,8 +18,13 @@ const ClassesCard = ({ classList }) => {
 
     console.log(userRole);
     const handleBooked = (item,email) => {
-        setSelectedItem(item);
-        saveClassesInDd(item,email)
+        if(user){
+            setSelectedItem(item);
+            saveClassesInDd(item,email)
+        }else{
+            alert('Login first');
+        }
+       
     }
     const { image, className, name, seats, price } = classList;
 
@@ -48,7 +53,7 @@ const ClassesCard = ({ classList }) => {
                     </p>
 
                     <button onClick={() => handleBooked(classList,user?.email)}
-                        disabled={(userRole[0] === 'admin' || userRole[0] === 'instructor') || seats === 0}
+                        disabled={(userRole[0] === 'admin' || userRole[0] === 'instructor') || seats === 0 || selectedItem===true}
                         className="btn btn-outline btn-accent"
                     >
                         Select
