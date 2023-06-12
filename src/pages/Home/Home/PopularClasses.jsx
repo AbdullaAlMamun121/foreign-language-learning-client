@@ -6,7 +6,7 @@ const PopularClasses = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch('http://localhost:5000/payments');
+                const response = await fetch('https://foreign-language-learning-server.vercel.app/payments');
                 const data = await response.json();
                 const items = data;
 

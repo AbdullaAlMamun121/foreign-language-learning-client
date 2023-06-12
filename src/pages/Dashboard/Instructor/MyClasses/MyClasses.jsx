@@ -15,7 +15,7 @@ const MyClasses = () => {
 
     const handleUpdateClasses = (data) => {
         console.log(data)
-        fetch(`http://localhost:5000/updateMyClasses/${data._id}`, {
+        fetch(`https://foreign-language-learning-server.vercel.app/updateMyClasses/${data._id}`, {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json',

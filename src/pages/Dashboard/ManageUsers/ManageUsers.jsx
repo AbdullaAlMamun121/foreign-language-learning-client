@@ -15,7 +15,7 @@ const ManageUsers = () => {
 
     const handleUpdateRole = async (role, user) => {
         try {
-            const response = await fetch(`http://localhost:5000/users/${user._id}/role`, {
+            const response = await fetch(`https://foreign-language-learning-server.vercel.app/users/${user._id}/role`, {
                 method: 'PATCH',
                 headers: {
                     'content-type': 'application/json',

@@ -5,7 +5,7 @@ export default function ErrorPage() {
 
     return (
         <div id="error-page" className="text-center mt-5">
-            <Image style={{height:'80vh'}} src={img} />
+            <img className="w-100 h-100" src={img} />
             <p>
                 <i>{error.statusText || error.message}</i>
                 <br />
