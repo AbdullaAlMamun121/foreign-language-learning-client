@@ -133,13 +133,13 @@ const ManageClasses = () => {
                     </table>
                 </div>
             </div>
-            <dialog id="my_modal_4" className="modal">
-                <form method="dialog" className="modal-box w-11/12 max-w-5xl">
-                    <h3 className="font-bold text-lg">Hello!</h3>
+            <dialog id="my_modal_4">
+                <form method="dialog">
+                    <h3 className="font-bold text-lg">FeedBack!</h3>
                     <p className="py-4">
                         <input type="textarea"
                             onChange={(e) => setFeedback(e.target.value)}
-                            className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:border-blue-500" /><BiMailSend className="text-5xl" onClick={() => handleFeedBack(itemId)}></BiMailSend>
+                            /><BiMailSend className="text-5xl" onClick={() => handleFeedBack(itemId)}></BiMailSend>
                     </p>
                     <div className="modal-action">
                         {/* if there is a button, it will close the modal */}
